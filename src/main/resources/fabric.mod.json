@@ -1,29 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "eliminateplayers",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Eliminate Players",
+  "description": "This cat ISN'T, it literally DOESN'T",
   "authors": [
-    "Me!"
+    "User disconnected"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "",
+    "sources": ""
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "ARR",
+  "icon": "assets/eplayer/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "arathain.amogus.EliminatePlayers"
+    ],
+    "preLaunch": [
+      "arathain.amogus.PreLaunchPlayerEntry"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "eliminateplayers.mixins.json"
   ],
 
   "depends": {
