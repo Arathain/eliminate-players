@@ -9,13 +9,21 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
 @Mixin(PlayerManager.class)
 public abstract class PlayerManagerMixin {
     @WrapWithCondition(method = "onPlayerConnect", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V"))
-    private boolean eplayer$playerLeave(PlayerManager manager, Text text, MessageType type, UUID uuid, ClientConnection connection, ServerPlayerEntity player) {
+    private boolean eplayers$playerLeave(PlayerManager manager, Text text, MessageType type, UUID uuid, ClientConnection connection, ServerPlayerEntity player) {
         return !EliminatePlayers.bannedUuids.contains(player.getUuid());
+    }
+    @Inject(method = "broadcast(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V", at = @At("HEAD"), cancellable = true)
+    private void eplayers$actuallyDontBroadcast(Text message, MessageType type, UUID sender, CallbackInfo ci) {
+        if(EliminatePlayers.bannedUuids.contains(sender)) {
+            ci.cancel();
+        }
     }
 }
