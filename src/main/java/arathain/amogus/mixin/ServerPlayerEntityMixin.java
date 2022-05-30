@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.UUID;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerMixin extends PlayerEntity {
-    public ServerPlayerMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity {
+    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
 

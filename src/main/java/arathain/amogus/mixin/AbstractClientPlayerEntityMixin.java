@@ -4,6 +4,7 @@ import arathain.amogus.EliminatePlayers;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.PlayerListHud;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.dedicated.gui.PlayerListGui;
@@ -24,7 +25,7 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
 
     @Override
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid()) && MinecraftClient.getInstance().getCameraEntity().getRotationVecClient().dotProduct(this.getPos().subtract(cameraX, cameraY, cameraZ).normalize()) > 0.58) {
+        if(EliminatePlayers.bannedUuids.contains(this.getUuid()) && (MinecraftClient.getInstance().getCameraEntity().getRotationVecClient().dotProduct(this.getPos().subtract(cameraX, cameraY, cameraZ).normalize()) > 0.58 || this.isInSneakingPose() || MinecraftClient.getInstance().options.getPerspective().isFrontView())) {
             return false;
         }
         return super.shouldRender(cameraX, cameraY, cameraZ);

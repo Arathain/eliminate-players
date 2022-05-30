@@ -1,6 +1,7 @@
 package arathain.amogus;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.server.command.MessageCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
