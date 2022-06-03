@@ -13,6 +13,7 @@
     "PlayerEntityRendererMixin",
     "PlayerListHudMixin",
     "PlayerManagerMixin",
+    "ServerCommandSourceMixin",
     "ServerPlayerEntityMixin"
   ],
   "client": [],

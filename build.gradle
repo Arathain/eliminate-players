@@ -23,6 +23,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation "com.github.LlamaLad7:MixinExtras:0.0.10"
+	include "com.github.LlamaLad7:MixinExtras:0.0.10"
 	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.0.10"
 }
 
