@@ -13,10 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PlayerAdvancementTrackerMixin {
     @Shadow private ServerPlayerEntity owner;
 
-    @ModifyExpressionValue(
-            method = "grantCriterion",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/AdvancementDisplay;shouldAnnounceToChat()Z")
-    )
+    @ModifyExpressionValue(method = "grantCriterion", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/AdvancementDisplay;shouldAnnounceToChat()Z"))
     private boolean eplayers$maybeActuallyDontAnnounce(boolean original) {
         return original && !EliminatePlayers.bannedUuids.contains(this.owner.getUuid());
     }

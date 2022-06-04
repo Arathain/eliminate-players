@@ -7,7 +7,6 @@
     "AbstractClientPlayerEntityMixin",
     "ClientCommandSourceMixin",
     "EntityArgumentTypeMixin",
-    "EntitySelectorMixin",
     "LivingEntityMixin",
     "PlayerAdvancementTrackerMixin",
     "PlayerEntityRendererMixin",

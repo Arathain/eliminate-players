@@ -32,7 +32,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     }
     @Inject(method = "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V", at = @At("HEAD"), cancellable = true)
     private void eplayers$dontSendMessage(Text message, MessageType type, UUID sender, CallbackInfo ci) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
+        if(EliminatePlayers.bannedUuids.contains(sender)) {
             ci.cancel();
         }
     }

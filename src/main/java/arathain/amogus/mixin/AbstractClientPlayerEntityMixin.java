@@ -25,7 +25,7 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
 
     @Override
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid()) && (MinecraftClient.getInstance().getCameraEntity().getRotationVecClient().dotProduct(this.getPos().subtract(cameraX, cameraY, cameraZ).normalize()) > 0.58 || this.isInSneakingPose() || MinecraftClient.getInstance().options.getPerspective().isFrontView())) {
+        if(EliminatePlayers.bannedUuids.contains(this.getUuid()) && (MinecraftClient.getInstance().getCameraEntity().getRotationVecClient().dotProduct(this.getPos().subtract(cameraX, cameraY, cameraZ).normalize()) > 0.57 || this.isInSneakingPose() || MinecraftClient.getInstance().options.getPerspective().isFrontView())) {
             return false;
         }
         return super.shouldRender(cameraX, cameraY, cameraZ);
