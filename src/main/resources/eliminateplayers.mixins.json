@@ -9,6 +9,7 @@
     "EntityArgumentTypeMixin",
     "LivingEntityMixin",
     "PlayerAdvancementTrackerMixin",
+    "PlayerEntityMixin",
     "PlayerEntityRendererMixin",
     "PlayerListHudMixin",
     "PlayerManagerMixin",
