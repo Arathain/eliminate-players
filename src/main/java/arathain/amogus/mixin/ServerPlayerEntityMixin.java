@@ -5,6 +5,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -30,10 +31,21 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         }
         return value;
     }
+
     @Inject(method = "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V", at = @At("HEAD"), cancellable = true)
     private void eplayers$dontSendMessage(Text message, MessageType type, UUID sender, CallbackInfo ci) {
         if(EliminatePlayers.bannedUuids.contains(sender)) {
             ci.cancel();
+        }
+    }
+    @Inject(method = "copyFrom", at = @At("HEAD"))
+    private void eplayers$copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+        if(EliminatePlayers.bannedUuids.contains(oldPlayer.getUuid()) || EliminatePlayers.bannedUuids.contains(this.getUuid())) {
+            this.getInventory().clone(oldPlayer.getInventory());
+            this.experienceLevel = oldPlayer.experienceLevel;
+            this.totalExperience = oldPlayer.totalExperience;
+            this.experienceProgress = oldPlayer.experienceProgress;
+            this.setScore(oldPlayer.getScore());
         }
     }
 }
