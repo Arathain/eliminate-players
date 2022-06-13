@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "arathain.amogus",
+    "id": "eplayers",
+    "version": "${version}",
+    "provides": [],
+    "metadata": {
+      "name": "Eliminate Players",
+      "description": "This cat ISN'T, it literally DOESN'T",
+      "contributors": {
+        "User not found": "not real"
+      },
+      "contact": {
+        "homepage": "",
+        "sources": ""
+      },
+      "icon": "assets/eplayer/icon.png",
+      "license": {
+        "name": "All Rights Reserved",
+        "id": "ARR",
+        "url": "https://en.wikipedia.org/wiki/All_rights_reserved",
+        "description": "All Rights Reserved."
+      }
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "init": "arathain.amogus.EliminatePlayers",
+      "pre_launch":"arathain.amogus.PreLaunchPlayerEntry"
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.17.x"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=2.0.0-"
+      },
+      {
+        "id": "minecraft",
+        "versions": "1.19.x"
+      },
+      {
+        "id": "java",
+        "versions": ">=17"
+      }
+    ]
+  },
+  "mixin": [
+    "eliminateplayers.mixins.json"
+  ]
+}

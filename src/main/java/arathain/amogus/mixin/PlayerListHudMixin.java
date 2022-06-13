@@ -1,12 +1,8 @@
 package arathain.amogus.mixin;
 
 import arathain.amogus.EliminatePlayers;
-import com.google.common.collect.Ordering;
 import net.minecraft.client.gui.hud.PlayerListHud;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
