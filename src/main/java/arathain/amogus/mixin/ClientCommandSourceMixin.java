@@ -24,7 +24,7 @@ public class ClientCommandSourceMixin {
         List<String> list = Lists.newArrayList();
         for(PlayerListEntry playerListEntry : this.networkHandler.getPlayerList()) {
             if(EliminatePlayers.bannedUuids.contains(playerListEntry.getProfile().getId()))
-            list.add(playerListEntry.getProfile().getName());
+                list.add(playerListEntry.getProfile().getName());
         }
         original.removeAll(list);
         return original;
