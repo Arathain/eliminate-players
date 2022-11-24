@@ -23,9 +23,9 @@ dependencies {
 	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
 
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${quilted_fabric_api_version}-${minecraft_version}"
-	modImplementation "com.github.LlamaLad7:MixinExtras:0.0.10"
-	include "com.github.LlamaLad7:MixinExtras:0.0.10"
-	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.0.10"
+	modImplementation "com.github.LlamaLad7:MixinExtras:0.1.1"
+	include "com.github.LlamaLad7:MixinExtras:0.1.1"
+	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.1.1"
 }
 
 processResources {
