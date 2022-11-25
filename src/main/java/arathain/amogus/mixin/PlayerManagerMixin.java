@@ -4,10 +4,13 @@ import arathain.amogus.EliminatePlayers;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.network.ClientConnection;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.component.TranslatableComponent;
+import net.minecraft.unmapped.C_tzcijmwg;
+import net.minecraft.unmapped.C_zzdolisx;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,10 +18,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Mixin(PlayerManager.class)
 public abstract class PlayerManagerMixin {
@@ -38,7 +43,14 @@ public abstract class PlayerManagerMixin {
             }
         }
     }
-
+    @Inject(method = "method_44791", at = @At("HEAD"), cancellable = true)
+    private void eplayers$noBroadcasty(C_zzdolisx message, Predicate<ServerPlayerEntity> shouldSendFiltered, @Nullable ServerPlayerEntity sender, C_tzcijmwg sourceProfile, MessageType.C_iocvgdxe params, CallbackInfo ci) {
+        if(message.method_44125().getString().startsWith("/")) return;
+        if(sender == null) return;
+        if(EliminatePlayers.bannedUuids.contains(sender.getUuid())) {
+            ci.cancel();
+        }
+    }
     @ModifyReturnValue(method = "getPlayerNames", at = @At("RETURN"))
     private String[] eplayers$dontGetAllPlayersArgType(String[] original) {
         for(int i = 0; i < this.players.size(); ++i) {
