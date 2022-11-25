@@ -6,7 +6,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.component.TranslatableComponent;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +31,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @ModifyVariable(method = "onDeath", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/damage/DamageTracker;getDeathMessage()Lnet/minecraft/text/Text;"), index = 3)
     private Text eplayers$modifyDeathMessage(Text value) {
         if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            return Text.empty();
+            Text txt = ((MutableText)(Object)((TranslatableComponent)value.asComponent()).getArgs()[0]).formatted(Formatting.OBFUSCATED).append(Text.translatable(((TranslatableComponent)value.asComponent()).getKey()).setStyle(Style.EMPTY.withObfuscated(false)));
+            System.out.println(txt);
+            return txt;
         }
         return value;
     }
