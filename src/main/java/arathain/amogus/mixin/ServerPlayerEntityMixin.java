@@ -31,9 +31,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @ModifyVariable(method = "onDeath", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/damage/DamageTracker;getDeathMessage()Lnet/minecraft/text/Text;"), index = 3)
     private Text eplayers$modifyDeathMessage(Text value) {
         if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            Text txt = ((MutableText)(Object)((TranslatableComponent)value.asComponent()).getArgs()[0]).formatted(Formatting.OBFUSCATED).append(Text.translatable(((TranslatableComponent)value.asComponent()).getKey()).setStyle(Style.EMPTY.withObfuscated(false)));
-            System.out.println(txt);
-            return txt;
+            return ((MutableText)(Object)((TranslatableComponent)value.asComponent()).getArgs()[0]).formatted(Formatting.OBFUSCATED).append(Text.translatable(((TranslatableComponent)value.asComponent()).getKey()).setStyle(Style.EMPTY.withObfuscated(false)));
         }
         return value;
     }
@@ -42,16 +40,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     private void eplayers$dontSendMessage(Text message, boolean bl, CallbackInfo ci) {
         if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
             ci.cancel();
-        }
-    }
-    @Inject(method = "copyFrom", at = @At("HEAD"))
-    private void eplayers$copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
-        if(EliminatePlayers.bannedUuids.contains(oldPlayer.getUuid()) || EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            this.getInventory().clone(oldPlayer.getInventory());
-            this.experienceLevel = oldPlayer.experienceLevel;
-            this.totalExperience = oldPlayer.totalExperience;
-            this.experienceProgress = oldPlayer.experienceProgress;
-            this.setScore(oldPlayer.getScore());
         }
     }
 }
