@@ -29,18 +29,9 @@ public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> entityType, World world) {
         super(entityType, world);
     }
-
-    @WrapWithCondition(method = "tickStatusEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-    private boolean eplayers$dontSpawnEffectParticles(World world, ParticleEffect particleEffect, double a, double b, double c, double d, double e, double f) {
-        return !((LivingEntity)(Object) this instanceof PlayerEntity player && EliminatePlayers.bannedUuids.contains(player.getUuid()));
-    }
-    @Inject(method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
-    private void eplayers$canTarget(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-        if(entity instanceof PlayerEntity player &&  EliminatePlayers.bannedUuids.contains(player.getUuid()))
-            cir.setReturnValue(false);
-    }
     @Inject(method = "damage", at = @At("HEAD"))
-    private void eplayers$fuckOffDiansuTrademark(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void eplayers$fuckOffDiansuAndOtherAssortedSoulmouldUsersTrademark(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        //"nothing personal, kid"
         if(source instanceof EntityDamageSource e && e.getAttacker() instanceof PlayerEntity player && EliminatePlayers.bannedUuids.contains(player.getUuid()) && Registry.ENTITY_TYPE.getId(this.getType()).getPath().contains("soulmould")) {
             NbtCompound nbt = new NbtCompound();
             this.writeCustomDataToNbt(nbt);
@@ -58,13 +49,5 @@ public abstract class LivingEntityMixin extends Entity {
             }
 
         }
-    }
-
-    @Override
-    public boolean isTeammate(Entity other) {
-        if(other instanceof PlayerEntity player &&  EliminatePlayers.bannedUuids.contains(player.getUuid()) && !(((LivingEntity) (Object) this) instanceof PlayerEntity)) {
-            return true;
-        }
-        return super.isTeammate(other);
     }
 }

@@ -28,14 +28,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         super(world, blockPos, f, gameProfile, playerPublicKey);
     }
 
-    @ModifyVariable(method = "onDeath", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/damage/DamageTracker;getDeathMessage()Lnet/minecraft/text/Text;"), index = 3)
-    private Text eplayers$modifyDeathMessage(Text value) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            return ((MutableText)(Object)((TranslatableComponent)value.asComponent()).getArgs()[0]).formatted(Formatting.OBFUSCATED).append(Text.translatable(((TranslatableComponent)value.asComponent()).getKey()).setStyle(Style.EMPTY.withObfuscated(false)));
-        }
-        return value;
-    }
-
     @Inject(method = "sendMessage(Lnet/minecraft/text/Text;Z)V", at = @At("HEAD"), cancellable = true)
     private void eplayers$dontSendMessage(Text message, boolean bl, CallbackInfo ci) {
         if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {

@@ -18,23 +18,4 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
-    @Inject(method = "dropInventory", at = @At("HEAD"), cancellable = true)
-    private void eplayers$dropInv(CallbackInfo ci) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            ci.cancel();
-        }
-    }
-
-    @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
-    private void eplayers$getName(CallbackInfoReturnable<Text> cir) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            cir.setReturnValue(Text.literal("Mouthpiece"));
-        }
-    }
-    @Inject(method = "getEntityName", at = @At("HEAD"), cancellable = true)
-    private void eplayers$getEntityName(CallbackInfoReturnable<String> cir) {
-        if(EliminatePlayers.bannedUuids.contains(this.getUuid())) {
-            cir.setReturnValue("Mouthpiece");
-        }
-    }
 }
